@@ -6,6 +6,12 @@ app.use(express.json());
 
 connectDB();
 
+app.get("/", async (req, res) => {
+  res.json({
+    message: "T-urban India"
+  })
+});
+
 // for getting info of all turbans ** using in google map
 app.get("/turbans", async (req, res) => {
   const turbans = await Turban.find();
