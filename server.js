@@ -8,7 +8,7 @@ connectDB();
 
 app.get("/", async (req, res) => {
   res.json({
-    message: "T-urban India",
+    message: " all turban ",
   });
 });
 
