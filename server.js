@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/db");
-const Turban = require("./models/Turban");
+const Turban = require("./models/turban");
 const app = express();
 app.use(express.json());
 
