@@ -8,8 +8,8 @@ connectDB();
 
 app.get("/", async (req, res) => {
   res.json({
-    message: "T-urban India"
-  })
+    message: "T-urban India",
+  });
 });
 
 // for getting info of all turbans ** using in google map
