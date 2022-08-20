@@ -1,9 +1,16 @@
 const express = require("express");
 const connectDB = require("./config/db");
-const Turban = require("./models/turban");
+const Turban = require("./models/turban.js");
 const app = express();
-app.use(express.json());
+const cors = require("cors");
+const passport = require("passport");
+const routes = require("./routes/index");
 
+app.use(express.json());
+app.use(cors());
+app.use(routes);
+app.use(passport.initialize());
+require("./config/passport")(passport);
 connectDB();
 
 app.get("/", async (req, res) => {
