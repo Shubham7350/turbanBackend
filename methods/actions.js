@@ -33,8 +33,8 @@ const functions = {
   },
   authenticate: function (req, res) {
     User.findOne(
-      {
-        email: req.body.email,
+      { name: req.body.name,
+        email: req.body.email
       },
       function (err, user) {
         if (err) throw err;
@@ -47,7 +47,7 @@ const functions = {
           user.comparePassword(req.body.password, function (err, isMatch) {
             if (isMatch && !err) {
               var token = jwt.encode(
-                { _id: user._id, email: user.email, id: user.id },
+                { _id: user._id, name: user.name, email: user.email, id: user.id },
                 config.secret
               );
               res.json({ success: true, token: token });
