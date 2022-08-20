@@ -4,10 +4,13 @@ const Turban = require("./models/turban.js");
 const app = express();
 const cors = require("cors");
 const passport = require("passport");
+const bodyParser = require("body-parser");
 const routes = require("./routes/index");
+const morgan = require("morgan");
 
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(routes);
 app.use(passport.initialize());
 require("./config/passport")(passport);
