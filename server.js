@@ -7,6 +7,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const routes = require("./routes/index");
 const morgan = require("morgan");
+const ytlinks = require("./models/ytlinks.js");
 
 app.use(express.json());
 app.use(cors());
