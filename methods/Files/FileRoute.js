@@ -13,4 +13,8 @@ router.post(
   fileUpload
 );
 
+// router.get("/images", (req, res) =>{
+//   res.send(multerFilesUpload.Location);
+// })
+
 module.exports.FileRoute = router;
