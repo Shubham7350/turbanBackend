@@ -1,7 +1,9 @@
 const S3 = require("aws-sdk/clients/s3.js")
 const {s3Secret} = require("../../config/secret.js");
 const {v4} = require("uuid");
-const fs = require("fs")
+const fs = require("fs");
+const Post = require("../../models/posts.js");
+const { db } = require("../../models/posts.js");
 
 const s3 = new S3({
     region: s3Secret.AWS_REGION,
@@ -45,9 +47,21 @@ module.exports.fileUpload = async(req,res,next) => {
         })
         res.status(201)
         let fileLink = response.Location
-        return res.json({
-            link: fileLink
-        })
+        console.log("File Stored Attt >> "+response.Location);
+        var singlePost = {
+            photoLink: ""+response.Location
+        };
+        db.collection('posts').insertOne(singlePost, function(err, res) {
+            if (err) throw err;
+            console.log("1 post inserted");
+           // db.close();
+          });
+            return res.json({
+                link: fileLink,
+                message: "success"
+            });
+         
+        
     })
     .catch((err)=>{
         res.status(500)
