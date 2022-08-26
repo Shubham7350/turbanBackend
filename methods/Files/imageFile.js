@@ -49,10 +49,10 @@ module.exports.imgUpload = async (req, res, next) => {
       let fileLink = response.Location;
       console.log("File Stored Attt >> " + response.Location);
       var singlePost = {
-        photo: "" + response.Location,
+        Photo: "" + response.Location,
         turbanName: req.body.turbanName,
         description: req.body.description,
-        infolink: req.body.infolink,
+        infoLink: req.body.infoLink,
         longitude: req.body.longitude,
         latitude: req.body.latitude
       };

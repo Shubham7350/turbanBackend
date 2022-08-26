@@ -62,6 +62,14 @@ app.get("/turban/tutorial", async (req, res) => {
   return res.send(ytlink);
 });
 
+app.post("/vendor/turban", async (req, res) => {
+  const ytlink = new ytlinks({
+    link: req.body.link,
+  });
+  await ytlink.save();
+  return res.send(ytlink);
+});
+
 // app.get("/turban/location", async(req, res) =>{
 //   const turban = await Turban.find({location: ""});
 //   return res.send(turban);
