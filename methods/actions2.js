@@ -1,15 +1,10 @@
 var vendor = require("../models/vendor.js");
-var product = require("../models/product");
+var Product = require("../models/vendor.js");
 var jwt = require("jwt-simple");
 var jwt1 = require("jsonwebtoken");
 var config = require("../config/dbconfig");
-var dotenv = require("dotenv").config();
 const _ = require("lodash");
-const { restart } = require("nodemon");
-const { modelName } = require("../models/vendor");
 const sgMail = require("@sendgrid/mail");
-const { populate } = require("../models/user");
-// const vendor = require("../models/vendor.js");
 
 var functions = {
   addNew: function (req, res) {
@@ -37,7 +32,7 @@ var functions = {
           if (err.code === 11000) {
             return res.json({
               success: false,
-              msg: "This Email or vendor name is already exist please try to Login",
+              msg: "This vendor is already exist please try to Login",
             });
           }
           res.json({ success: false, msg: "Failed to save" });
@@ -48,24 +43,31 @@ var functions = {
       });
     }
   },
+
   // addTurban: function (req, res)=> {
   //   // var new turban =
   // },
   addProduct: function (req, res) {
+    try {
+      const email = req.body;
+    // vendor.findOne({email}, (err, email)=>{
+    //   if(err || !email){
+    //     res.send("please enter a valid email.");
+    //     console.log(err);
+    //   }
+    // })
     if (!req.body.name || !req.body.description || !req.body.price) {
       res.json({ success: false, msg: "Enter all fields" });
     } else {
-      var addproduct = product({
-        // _id: vendor._id,
+      var addproduct = Product({
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
-
-        // imgurl:""
       });
 
       addproduct.save(function (err, addproduct) {
         if (err) {
+          console.log(err);
           return res.json({ msg: "Not able to add Product" });
         } else {
           const name = req.body;
@@ -80,6 +82,13 @@ var functions = {
         }
       });
     }
+
+    vendor.findOneAndUpdate({_id:req.params.id}, {$push:{vendors:req.body.vendor_id}});
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
   },
   authenticate: function (req, res) {
     vendor.findOne(

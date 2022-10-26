@@ -1,87 +1,82 @@
-var mongoose = require('mongoose')
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-// var Schema1 = mongoose.Schema;
-var bcrypt = require('bcrypt');
-
+var bcrypt = require("bcrypt");
 
 var productSchema = new Schema({
-    name: String,
-    description: String,
-    price: Number
-})
+  name: String,
+  description: String,
+  price: Number,
+});
 
-var vendorSchema = new Schema({
+var vendorSchema = new Schema(
+  {
     name: {
-        type: String,
-        // require: true,
-        unique: true
+      type: String,
+      require: true,
+      unique: true,
     },
     email: {
       type: String,
-    //   require: true,
-      unique: true
+      require: true,
+      unique: true,
     },
-    address:{
-        type: String,
-        // require: true
+    address: {
+      type: String,
+      require: true,
     },
-    shopName:{
-        type: String,
-        // require:true
+    shopName: {
+      type: String,
+      require: true,
     },
-    phone:{
-        type: Number,
-        // require: true,
-        unique: true,
-        
+    phone: {
+      type: Number,
+      require: true,
+      unique: true,
     },
     password: {
-        type: String,
-        require: true
+      type: String,
+      require: true,
     },
-    products:[productSchema],
+    products: [{type: Schema.Types.ObjectId, ref: 'Product'}],
+
     resetLink: {
-        data: String,
-        default: ""
-
-
+      data: String,
+      default: "",
     },
-    // product: [{ type: Schema.Types.ObjectId, ref: 'product' }],
-    
-},{timestamps: true})
+  },
+  { timestamps: true }
+);
 
-
-
-
-vendorSchema.pre('save', function (next) {
-    var vendor = this;
-    if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
-            if (err) {
-                return next(err)
-            }
-            bcrypt.hash(vendor.password, salt, function (err, hash) {
-                if (err) {
-                    return next(err)
-                }
-                vendor.password = hash;
-                next()
-            })
-        })
-    }
-    else {
-        return next()
-    }
-})
+vendorSchema.pre("save", function (next) {
+  var vendor = this;
+  if (this.isModified("password") || this.isNew) {
+    bcrypt.genSalt(10, function (err, salt) {
+      if (err) {
+        return next(err);
+      }
+      bcrypt.hash(vendor.password, salt, function (err, hash) {
+        if (err) {
+          return next(err);
+        }
+        vendor.password = hash;
+        next();
+      });
+    });
+  } else {
+    return next();
+  }
+});
 
 vendorSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
-        if(err) {
-            return cb(err)
-        }
-        cb(null, isMatch)
-    })
-}
-// module.exports = mongoose.model('product', productSchema1)
-module.exports = mongoose.model('vendor', vendorSchema)
-// module.exports = mongoose.model('product', productSchema)
+  bcrypt.compare(passw, this.password, function (err, isMatch) {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, isMatch);
+  });
+};
+
+
+
+module.exports = mongoose.model("Product", productSchema)
+module.exports = mongoose.model("vendor", vendorSchema);
