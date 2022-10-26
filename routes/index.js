@@ -53,7 +53,6 @@ router.post("/authenticate", actions.authenticate);
 
 router.put("/forgot-password", actions.forgotPassword);
 
-
 //@desc Get info on a user
 //@route GET /getinfo
 router.get("/getinfo", actions.getinfo);

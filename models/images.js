@@ -6,7 +6,7 @@ var imageSchema = new mongoose.Schema({
   description: String,
   infolink: String,
   longitude: String,
-  latitude: String
+  latitude: String,
 });
 
 const Image = mongoose.model("Image", imageSchema);

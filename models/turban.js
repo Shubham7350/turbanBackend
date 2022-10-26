@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-// var schema = mongoose.schema;
 var turbanDataSchema = new mongoose.Schema({
   // _id: Number,
   photo: String,

@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
-// var Schema = mongoose.Schema;
 var ytLinkSchema = new mongoose.Schema({
-  link: String
+  link: String,
 });
 
-module.exports = mongoose.model('Ytlinks', ytLinkSchema)
+module.exports = mongoose.model("Ytlinks", ytLinkSchema);
