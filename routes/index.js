@@ -12,15 +12,9 @@ router.get("/dashboard", (req, res) => {
   res.send("Dashboard");
 });
 
-//@desc Adding new vendor
+//@desc Adding new vendor with procucts
 //@route POST /addvendor
-// router.post('/addvendor', actions.addNew)
 router.post("/vendor/signUp", actions2.addNew);
-
-//@desc Adding new product
-//@route POST /addproduct
-// router.post('/addproduct', actions.addProduct)
-router.post("/vendor/addProduct", actions2.addProduct);
 
 //@desc Authenticate a vendor
 //@route POST /authenticate
