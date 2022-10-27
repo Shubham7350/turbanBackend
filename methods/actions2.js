@@ -1,5 +1,4 @@
 var vendor = require("../models/vendor.js");
-var Product = require("../models/vendor.js");
 var jwt = require("jwt-simple");
 var jwt1 = require("jsonwebtoken");
 var config = require("../config/dbconfig");
@@ -25,6 +24,7 @@ var functions = {
         shopName: req.body.shopName,
         address: req.body.address,
         phone: req.body.phone,
+        products: req.body.products,
       });
 
       newvendor.save(function (err, newvendor) {
@@ -44,52 +44,6 @@ var functions = {
     }
   },
 
-  // addTurban: function (req, res)=> {
-  //   // var new turban =
-  // },
-  addProduct: function (req, res) {
-    try {
-      const email = req.body;
-    // vendor.findOne({email}, (err, email)=>{
-    //   if(err || !email){
-    //     res.send("please enter a valid email.");
-    //     console.log(err);
-    //   }
-    // })
-    if (!req.body.name || !req.body.description || !req.body.price) {
-      res.json({ success: false, msg: "Enter all fields" });
-    } else {
-      var addproduct = Product({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-      });
-
-      addproduct.save(function (err, addproduct) {
-        if (err) {
-          console.log(err);
-          return res.json({ msg: "Not able to add Product" });
-        } else {
-          const name = req.body;
-          vendor.findOne({ name }, (err, vendor) => {
-            if (err) {
-              res.json({ msg: "not done" });
-            }
-            res.json({ msg: vendor_id });
-            res.json({ msg: _id });
-            res.json({ msg: "sucessfully saved" });
-          });
-        }
-      });
-    }
-
-    vendor.findOneAndUpdate({_id:req.params.id}, {$push:{vendors:req.body.vendor_id}});
-      
-    } catch (error) {
-      console.log(error);
-    }
-    
-  },
   authenticate: function (req, res) {
     vendor.findOne(
       {
@@ -221,10 +175,6 @@ var functions = {
         }
       });
     });
-
-    // else{
-    //     return res.status(401).json({error: "identification error"})
-    // }
   },
 };
 
