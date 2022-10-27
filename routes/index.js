@@ -4,6 +4,7 @@ const actions2 = require("../methods/actions2");
 const { FileRoute } = require("../methods/Files/FileRoute");
 const router = express.Router();
 
+/****** Test Routes ******/
 router.get("/", (req, res) => {
   res.send("Hello World");
 });
@@ -11,6 +12,8 @@ router.get("/", (req, res) => {
 router.get("/dashboard", (req, res) => {
   res.send("Dashboard");
 });
+
+/****** Routes for Vendor ******/
 
 //@desc Adding new vendor with procucts
 //@route POST /addvendor
@@ -35,6 +38,8 @@ router.put("/vendor/forgot-password", actions2.forgotPassword);
 //@desc reset Password for vendor
 //@route PUT /resetPassword
 router.post("/vendor/reset-password", actions2.resetPassword);
+
+/****** Routes for User ******/  
 
 //@desc Adding new user
 //@route POST /adduser
