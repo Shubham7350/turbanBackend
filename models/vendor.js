@@ -2,12 +2,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var bcrypt = require("bcrypt");
 
-var productSchema = new Schema({
-  name: String,
-  description: String,
-  price: Number,
-});
-
 var vendorSchema = new Schema(
   {
     name: {
@@ -37,7 +31,7 @@ var vendorSchema = new Schema(
       type: String,
       require: true,
     },
-    products: [{type: Schema.Types.ObjectId, ref: 'Product'}],
+    products: [{ name: String, description: String, price: Number }],
 
     resetLink: {
       data: String,
@@ -76,7 +70,4 @@ vendorSchema.methods.comparePassword = function (passw, cb) {
   });
 };
 
-
-
-module.exports = mongoose.model("Product", productSchema)
 module.exports = mongoose.model("vendor", vendorSchema);
